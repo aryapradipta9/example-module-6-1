@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
 import { Post } from "./Post";
@@ -6,18 +5,10 @@ import { Post } from "./Post";
 function App() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
-        const responseBody = await response.json();
-        setPosts(responseBody);
-      } catch (err) {
-        console.log("Error while fetching posts");
-      }
-    }
-    fetchPosts();
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((r) => r.json())
+      .then((body) => setPosts(body))
+      .catch((err) => console.log("Error while fetching posts"));
   }, []);
 
   return (
